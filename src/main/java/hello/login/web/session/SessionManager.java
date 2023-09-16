@@ -18,6 +18,9 @@ public class SessionManager {
 
     /**
      * 세션 생성
+     *  * sessionId 생성 (임의의 추정 불가능한 랜덤 값)
+     *  * 세션 저장소에 sessionId와 보관할 값 저장
+     *  * sessionId로 응답 쿠키를 생성해서 클라이언트에 전달
      */
     public void createSession(Object value, HttpServletResponse response) {
 
@@ -29,6 +32,9 @@ public class SessionManager {
         response.addCookie(mySessionCookie);
     }
 
+    /**
+     * 세션 조회
+     */
     public Object getSession(HttpServletRequest request) {
         Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
         if (sessionCookie == null) {
@@ -37,6 +43,9 @@ public class SessionManager {
         return sessionStore.get(sessionCookie.getValue());
     }
 
+    /**
+     * 세션 만료
+     */
     public void expire(HttpServletRequest request) {
         Cookie sessionCookie = findCookie(request, SESSION_COOKIE_NAME);
         if (sessionCookie != null) {
